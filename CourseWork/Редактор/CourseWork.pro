@@ -5,21 +5,26 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = CourseWork
 TEMPLATE = app
 
+QTPLUGIN += QSQLMYSQL
 
 SOURCES += main.cpp \
     loginwindow.cpp \
-    mainmenu.cpp
+    mainmenu.cpp \
+    addoperatorwindow.cpp
 
 HEADERS  += \
     loginwindow.h \
-    mainmenu.h
+    mainmenu.h \
+    addoperatorwindow.h
 
 FORMS    += \
     loginwindow.ui \
-    mainmenu.ui
+    mainmenu.ui \
+    addoperatorwindow.ui

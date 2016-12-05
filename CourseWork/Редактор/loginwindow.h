@@ -2,6 +2,13 @@
 #define LOGINWINDOW_H
 
 #include <QMainWindow>
+#include <QVector>
+
+struct LogPass
+{
+    QString login;
+    QString pass;
+};
 
 namespace Ui {
 class LoginWindow;
@@ -20,6 +27,7 @@ private slots:
 
 private:
     Ui::LoginWindow *ui;
+    QVector <LogPass> LPVector;
 };
 
 #endif // LOGINWINDOW_H
