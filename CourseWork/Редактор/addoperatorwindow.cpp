@@ -1,8 +1,10 @@
 #include "addoperatorwindow.h"
 #include "ui_addoperatorwindow.h"
+
 #include <QMessageBox>
 #include <QSql>
 #include <QSqlQuery>
+#include <QDebug>
 
 AddOperatorWindow::AddOperatorWindow(QWidget *parent) :
     QDialog(parent),
@@ -64,21 +66,37 @@ void AddOperatorWindow::on_passwordField_textChanged()
     checkInput();
 }
 
+QVariantList AddOperatorWindow::returnValues()
+{
+    QVariantList data;
+    data << ui->loginField->text()
+           << ui->passwordField->text()
+           << ui->surnameField->text() + ' '
+            + ui->nameField->text() + ' '
+            + ui->fathersNameField->text();
+
+    qDebug() << data[0] << data[1] << data[2];
+    return data;
+}
+
 void AddOperatorWindow::on_addBtn_clicked()
 {
-      QSqlQuery query;
 
-      query.prepare("INSERT INTO Оператори (Логін, Пароль, ПІБ) "
-                    "VALUES (:login, :password, :name)");
+    QSqlQuery query;
 
-      QString name = ui->surnameField->text() + ' '
-                   + ui->nameField->text() + ' ' + ui->fathersNameField->text();
+    query.prepare("INSERT INTO Оператори (Логін, Пароль, ПІБ) "
+                  "VALUES (:login, :password, :name)");
 
-      query.bindValue(":login", ui->loginField->text());
-      query.bindValue(":password", ui->passwordField->text());
-      query.bindValue(":name", name);
+    QString name = ui->surnameField->text() + ' '
+                 + ui->nameField->text() + ' ' + ui->fathersNameField->text();
 
-      query.exec();
+    query.bindValue(":login", ui->loginField->text());
+    query.bindValue(":password", ui->passwordField->text());
+    query.bindValue(":name", name);
 
-      this->close();
+    query.exec();
+
+    emit needUpdate();
+    this->close();
 }
+

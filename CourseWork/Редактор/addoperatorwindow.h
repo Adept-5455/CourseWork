@@ -2,6 +2,7 @@
 #define ADDOPERATORWINDOW_H
 
 #include <QDialog>
+#include "ui_addoperatorwindow.h"
 
 namespace Ui {
 class AddOperatorWindow;
@@ -13,8 +14,13 @@ class AddOperatorWindow : public QDialog
     void checkInput();
 
 public:
+    Ui::AddOperatorWindow* ui;
     explicit AddOperatorWindow(QWidget *parent = 0);
+    QVariantList returnValues();
     ~AddOperatorWindow();
+
+signals:
+    needUpdate();
 
 private slots:
 
@@ -26,8 +32,6 @@ private slots:
     void on_passwordField_textChanged();
     void on_addBtn_clicked();
 
-private:
-    Ui::AddOperatorWindow *ui;
 };
 
 #endif // ADDOPERATORWINDOW_H

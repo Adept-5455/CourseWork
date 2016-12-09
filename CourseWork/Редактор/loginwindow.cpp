@@ -14,7 +14,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->setupUi(this);
 
     QSqlDatabase tempDB = QSqlDatabase::addDatabase("QSQLITE");
-    tempDB.setDatabaseName("C:\\Users\\Adept\\Desktop\\ZNTU_Abiturient.db");
+    tempDB.setDatabaseName("C:\\Users\\Adept\\Desktop\\Abiturients.db");
 
     if(tempDB.open()) qDebug() << "Success!" ;
     else qDebug() << "Error:" ;
@@ -30,6 +30,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
         LPVector.push_back(tmpLogPass);
     }
 
+    tempDB.close();
 }
 
 LoginWindow::~LoginWindow()
