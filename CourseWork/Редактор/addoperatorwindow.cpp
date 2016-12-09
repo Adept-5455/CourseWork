@@ -18,6 +18,7 @@ AddOperatorWindow::~AddOperatorWindow()
     delete ui;
 }
 
+
 void AddOperatorWindow::checkInput()
 {
     if((ui->surnameField->text().length()==0 ||

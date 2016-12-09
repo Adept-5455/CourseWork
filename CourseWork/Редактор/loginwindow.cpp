@@ -6,31 +6,13 @@
 #include <QSqlDataBase>
 #include <QDebug>
 #include <QMessageBox>
+#include <qsqlerror.h>
 
 LoginWindow::LoginWindow(QWidget *parent) :
-    QMainWindow(parent),
+    QDialog(parent),
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-
-    QSqlDatabase tempDB = QSqlDatabase::addDatabase("QSQLITE");
-    tempDB.setDatabaseName("C:\\Users\\Adept\\Desktop\\Abiturients.db");
-
-    if(tempDB.open()) qDebug() << "Success!" ;
-    else qDebug() << "Error:" ;
-
-    QSqlQuery query;
-    query.exec("SELECT Логін, Пароль FROM Оператори");
-
-    while(query.next())
-    {
-        LogPass tmpLogPass;
-        tmpLogPass.login = query.value(0).toString();
-        tmpLogPass.pass =  query.value(1).toString();
-        LPVector.push_back(tmpLogPass);
-    }
-
-    tempDB.close();
 }
 
 LoginWindow::~LoginWindow()
@@ -40,15 +22,13 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_pushButton_clicked()
 {
-
     foreach(LogPass templogpass, LPVector)
     {
+        qDebug() << templogpass.login << ' ' << templogpass.pass;
         if(templogpass.login == ui->loginField->text()
                 && templogpass.pass == ui->passwordField->text())
         {
-            this->hide();
-            MainMenu* menu = new MainMenu();
-            menu->show();
+            successEnter = true;
             this->close();
             return;
         }
@@ -59,4 +39,9 @@ void LoginWindow::on_pushButton_clicked()
     wrongLogPass.setWindowTitle("Помилка вводу!");
     wrongLogPass.setIcon(QMessageBox::Critical);
     wrongLogPass.exec();
+}
+
+void LoginWindow::on_exitBtn_clicked()
+{
+    this->close();
 }

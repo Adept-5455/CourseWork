@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>[Редактор] Абітурієнт-ЗНТУ</string>
+   <string>[Редактор] ЗНТУ-Абітурієнт</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -55,6 +55,9 @@
         </item>
         <item row="2" column="3">
          <widget class="QPushButton" name="addBtn">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Додати</string>
           </property>
@@ -79,6 +82,9 @@
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="1" column="1">
          <widget class="QPushButton" name="delBtn_2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Видалити</string>
           </property>
@@ -126,7 +132,7 @@
      <bool>false</bool>
     </property>
     <addaction name="loadFromDB"/>
-    <addaction name="loadFromXML"/>
+    <addaction name="generateXML"/>
     <addaction name="separator"/>
     <addaction name="exit"/>
    </widget>
@@ -140,9 +146,9 @@
     <enum>QAction::ApplicationSpecificRole</enum>
    </property>
   </action>
-  <action name="loadFromXML">
+  <action name="generateXML">
    <property name="text">
-    <string>Завантажити з XML</string>
+    <string>Згенерувати XML</string>
    </property>
   </action>
   <action name="exit">

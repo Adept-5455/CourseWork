@@ -15,16 +15,16 @@ TEMPLATE = app
 QTPLUGIN += QSQLMYSQL
 
 SOURCES += main.cpp \
-    loginwindow.cpp \
     mainmenu.cpp \
-    addoperatorwindow.cpp
+    addoperatorwindow.cpp \
+    loginwindow.cpp
 
 HEADERS  += \
-    loginwindow.h \
     mainmenu.h \
-    addoperatorwindow.h
+    addoperatorwindow.h \
+    loginwindow.h
 
 FORMS    += \
-    loginwindow.ui \
     mainmenu.ui \
-    addoperatorwindow.ui
+    addoperatorwindow.ui \
+    loginwindow.ui

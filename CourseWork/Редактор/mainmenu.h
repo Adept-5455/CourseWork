@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QSqlTableModel>
+
+#include "loginwindow.h"
 #include "addoperatorwindow.h"
 
 namespace Ui {
@@ -41,6 +43,7 @@ signals:
     needClearFields();
 
 private:
+
     Ui::MainMenu *ui;
     QSqlDatabase db;
 
@@ -48,6 +51,7 @@ private:
     QSqlTableModel *ratingModel;
 
     AddOperatorWindow AOW;
+    LoginWindow LW;
     QModelIndexList indexes;
 };
 
