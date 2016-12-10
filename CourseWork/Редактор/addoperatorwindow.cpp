@@ -11,6 +11,12 @@ AddOperatorWindow::AddOperatorWindow(QWidget *parent) :
     ui(new Ui::AddOperatorWindow)
 {
     ui->setupUi(this);
+
+    QRegExp RegEx( "^[А-ЯІ][а-яі]+$" );
+    QValidator *validator = new QRegExpValidator(RegEx, this);
+    ui->surnameField->setValidator(validator);
+    ui->nameField->setValidator(validator);
+    ui->fathersNameField->setValidator(validator);
 }
 
 AddOperatorWindow::~AddOperatorWindow()

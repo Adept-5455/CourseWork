@@ -35,6 +35,7 @@ void MainMenu::updateTables()
         return;
     }
 
+    ui->tabWidget->setEnabled(true);
     ui->addBtn->setEnabled(true);
     operatorsModel = new QSqlTableModel(this, db);
     ratingModel = new QSqlTableModel(this, db);
@@ -118,6 +119,7 @@ void MainMenu::connectToDB()
         ui->addBtn->setEnabled(false);
         ui->delBtn->setEnabled(false);
         ui->delBtn_2->setEnabled(false);
+        ui->tabWidget->setEnabled(false);
 
         LW.LPVector.clear();
 

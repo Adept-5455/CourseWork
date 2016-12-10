@@ -319,7 +319,7 @@ void MainMenu::on_findBtn_clicked()
 
     if(ui->specialityCheckBox->isChecked())
     {
-        queryText += "Спеціальність = '" + ui->specialityBox->currentText() + "' ";
+        queryText += "Спеціальність = '" + ui->specialityFindBox->currentText() + "' ";
         onlyOneParameter = false;
     }
 
