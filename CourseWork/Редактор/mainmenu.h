@@ -24,15 +24,12 @@ public:
 
 private slots:
     void on_addBtn_clicked();
+    void loadFromXML();
+    void generateXML();
     void connectToDB();
-    void on_updBtn_clicked();
-
     void on_operatorsTable_clicked(const QModelIndex &index);
-
     void on_delBtn_clicked();
-
     void on_delBtn_2_clicked();
-
     void on_ratingTable_clicked(const QModelIndex &index);
 
 public slots:
@@ -53,6 +50,8 @@ private:
     AddOperatorWindow AOW;
     LoginWindow LW;
     QModelIndexList indexes;
+
+    void setHeadersData(QAbstractItemModel*, QAbstractItemModel*);
 };
 
 #endif // MAINMENU_H

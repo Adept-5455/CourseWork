@@ -2,11 +2,12 @@
 #include "loginwindow.h"
 #include "mainmenu.h"
 
-#include <QSqlQuery>
-#include <QSqlDataBase>
 #include <QDebug>
 #include <QMessageBox>
-#include <qsqlerror.h>
+
+#include <QSqlQuery>
+#include <QSqlDataBase>
+#include <QSqlError>
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent),

@@ -80,7 +80,7 @@
       </widget>
       <widget class="QWidget" name="ratingTab">
        <attribute name="title">
-        <string>Рейтингові списки</string>
+        <string>Абітурієнти</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="1" column="1">
@@ -135,8 +135,9 @@
      <bool>false</bool>
     </property>
     <addaction name="loadFromDB"/>
-    <addaction name="generateXML"/>
     <addaction name="separator"/>
+    <addaction name="generateXML"/>
+    <addaction name="action_XML"/>
     <addaction name="exit"/>
    </widget>
    <addaction name="menu"/>
@@ -157,6 +158,11 @@
   <action name="exit">
    <property name="text">
     <string>Вихід</string>
+   </property>
+  </action>
+  <action name="action_XML">
+   <property name="text">
+    <string>Завантажити з XML</string>
    </property>
   </action>
  </widget>
