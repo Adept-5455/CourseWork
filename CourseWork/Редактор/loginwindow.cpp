@@ -6,13 +6,16 @@
 #include <QSqlDataBase>
 #include <QDebug>
 #include <QMessageBox>
-#include <qsqlerror.h>
+#include <QSqlError>
 
 LoginWindow::LoginWindow(QWidget *parent) :
-    QDialog(parent),
+    QMainWindow(parent),
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+
+    this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
+    this->setWindowFlags(Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
 }
 
 LoginWindow::~LoginWindow()
@@ -29,6 +32,7 @@ void LoginWindow::on_pushButton_clicked()
                 && templogpass.pass == ui->passwordField->text())
         {
             successEnter = true;
+            correct = templogpass;
             this->close();
             return;
         }

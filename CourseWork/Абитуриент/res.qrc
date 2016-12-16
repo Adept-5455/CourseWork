@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/Style">
+        <file>Style/QSS.css</file>
+    </qresource>
+    <qresource prefix="/Images">
+        <file>Images/ForCheckboxChecHover.jpg</file>
+        <file>Images/ForCheckboxChecked.jpg</file>
+        <file>Images/ForCheckBoxChecked_2.png</file>
+        <file>Images/ForCheckBoxCheckedHover_2.png</file>
+        <file>Images/ForCheckBoxUnChecked.jpg</file>
+        <file>Images/ForCheckBoxUnChecked_2.png</file>
+        <file>Images/ForCheckBoxUnCheckedHover.jpg</file>
+        <file>Images/ForCheckBoxUnCheckedHover_2.png</file>
+        <file>Images/ForComboBox.png</file>
+        <file>Images/ForScrollBarHL.jpg</file>
+        <file>Images/ForScrollBarHLHov.jpg</file>
+        <file>Images/ForScrollBarHR.jpg</file>
+        <file>Images/ForScrollBarHRHov.jpg</file>
+        <file>Images/ForScrollBarVDown.jpg</file>
+        <file>Images/ForScrollBarVDownHov.jpg</file>
+        <file>Images/ForScrollBarVUp.jpg</file>
+        <file>Images/ForScrollBarVUpHov.jpg</file>
+        <file>Images/ForSpinBoxDown.png</file>
+        <file>Images/ForSpinBoxDownHover.png</file>
+        <file>Images/ForSpinBoxDownPressed.png</file>
+        <file>Images/ForSpinBoxUp.png</file>
+        <file>Images/ForSpinBoxUpHover.png</file>
+        <file>Images/ForSpinBoxUpPressed.png</file>
+        <file>Images/ForScrollBarHDdownPr.jpg</file>
+        <file>Images/ForScrollBarHLPr.jpg</file>
+        <file>Images/ForScrollBarHRPr.jpg</file>
+        <file>Images/ForScrollBarHUpPr.jpg</file>
+    </qresource>
+</RCC>

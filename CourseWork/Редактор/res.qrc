@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/Style">
+        <file>Style/QSS.css</file>
+    </qresource>
+    <qresource prefix="/Images">
+        <file>Images/ForScrollBarHDdownPr.jpg</file>
+        <file>Images/ForScrollBarHL.jpg</file>
+        <file>Images/ForScrollBarHLHov.jpg</file>
+        <file>Images/ForScrollBarHLPr.jpg</file>
+        <file>Images/ForScrollBarHR.jpg</file>
+        <file>Images/ForScrollBarHRHov.jpg</file>
+        <file>Images/ForScrollBarHRPr.jpg</file>
+        <file>Images/ForScrollBarHUpPr.jpg</file>
+        <file>Images/ForScrollBarVDown.jpg</file>
+        <file>Images/ForScrollBarVDownHov.jpg</file>
+        <file>Images/ForScrollBarVUp.jpg</file>
+        <file>Images/ForScrollBarVUpHov.jpg</file>
+    </qresource>
+</RCC>

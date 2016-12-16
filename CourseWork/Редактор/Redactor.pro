@@ -1,15 +1,14 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-12-04T12:48:54
+# Project created by QtCreator 2016-12-15T16:06:20
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT       += sql
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = CourseWork
+TARGET = Redactor
 TEMPLATE = app
 
 VERSION = 1.0.0
@@ -18,24 +17,22 @@ QMAKE_TARGET_PRODUCT = Students Registration System [Operator]
 QMAKE_TARGET_DESCRIPTION = Course project
 QMAKE_TARGET_COPYRIGHT = S.K.K KST-415
 
-QTPLUGIN += QSQLMYSQL
-
-SOURCES += main.cpp \
-    mainmenu.cpp \
+SOURCES += main.cpp\
+        mainmenu.cpp \
+    loginwindow.cpp \
     addoperatorwindow.cpp \
-    loginwindow.cpp
+    dbinterface.cpp
 
-HEADERS  += \
-    mainmenu.h \
+HEADERS  += mainmenu.h \
+    loginwindow.h \
     addoperatorwindow.h \
-    loginwindow.h
+    dbinterface.h
 
-FORMS    += \
-    mainmenu.ui \
-    addoperatorwindow.ui \
-    loginwindow.ui
+FORMS    += mainmenu.ui \
+    loginwindow.ui \
+    addoperatorwindow.ui
+
+RC_ICONS = Icon.ico
 
 RESOURCES += \
     res.qrc
-
-RC_ICONS = Icon.ico

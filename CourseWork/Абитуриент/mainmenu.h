@@ -7,6 +7,10 @@
 #include <QSqlDatabase>
 #include <QSqlQueryModel>
 
+#include <QFile>
+
+#include "dbinterface.h"
+
 namespace Ui {
 class MainMenu;
 }
@@ -31,6 +35,7 @@ private slots:
     void checkInput();
     void changeFindBtnState();
     void setHeaderData();
+    void generateXML();
 
     void on_findBtn_clicked();
 
@@ -39,7 +44,7 @@ private slots:
 private:
     Ui::MainMenu *ui;
     LoginWindow LW;
-    QSqlDatabase db;
+    DBInterface DBI;
     QSqlQueryModel* abitListModel;
 };
 

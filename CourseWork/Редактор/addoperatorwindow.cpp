@@ -12,7 +12,10 @@ AddOperatorWindow::AddOperatorWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QRegExp RegEx( "^[А-ЯІ][а-яі]+$" );
+    this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
+    this->setWindowFlags(Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+
+    QRegExp RegEx( "^[А-ЯІЄЇ][а-яієї]+$" );
     QValidator *validator = new QRegExpValidator(RegEx, this);
     ui->surnameField->setValidator(validator);
     ui->nameField->setValidator(validator);

@@ -21,7 +21,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
+    <item row="2" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="enabled">
        <bool>false</bool>
@@ -40,10 +40,27 @@
         <string>Оператори</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0" colspan="6">
-         <widget class="QTableView" name="operatorsTable"/>
+        <item row="3" column="3">
+         <widget class="QPushButton" name="addBtn">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Додати</string>
+          </property>
+         </widget>
         </item>
-        <item row="2" column="1">
+        <item row="3" column="5">
+         <widget class="QPushButton" name="delBtn">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Видалити</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -56,31 +73,14 @@
           </property>
          </spacer>
         </item>
-        <item row="2" column="3">
-         <widget class="QPushButton" name="addBtn">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>Додати</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="5">
-         <widget class="QPushButton" name="delBtn">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>Видалити</string>
-          </property>
-         </widget>
+        <item row="1" column="0" colspan="6">
+         <widget class="QTableView" name="operatorsTable"/>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="ratingTab">
        <attribute name="title">
-        <string>Рейтингові списки</string>
+        <string>Абітурієнти</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="1" column="1">
@@ -113,6 +113,13 @@
       </widget>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="statusLabel">
+      <property name="text">
+       <string>Оберіть БД для завантаження через меню &quot;Файл&quot;.</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -135,8 +142,8 @@
      <bool>false</bool>
     </property>
     <addaction name="loadFromDB"/>
-    <addaction name="generateXML"/>
     <addaction name="separator"/>
+    <addaction name="generateXML"/>
     <addaction name="exit"/>
    </widget>
    <addaction name="menu"/>
@@ -157,6 +164,11 @@
   <action name="exit">
    <property name="text">
     <string>Вихід</string>
+   </property>
+  </action>
+  <action name="action_XML">
+   <property name="text">
+    <string>Завантажити з XML</string>
    </property>
   </action>
  </widget>

@@ -5,9 +5,12 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+
 #include <QFileDialog>
 #include <QDebug>
 #include <QMessageBox>
+
+#include <QXmlStreamWriter>
 
 MainMenu::MainMenu(QWidget *parent) :
     QMainWindow(parent),
@@ -15,7 +18,20 @@ MainMenu::MainMenu(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
+    this->setWindowFlags(Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+
+    QFile styleF;
+
+    styleF.setFileName(":/Style/Style/QSS.css");
+    styleF.open(QFile::ReadOnly);
+    QString qssStr = styleF.readAll();
+
+    qApp->setStyleSheet(qssStr);
+
     connect(ui->loadFromDB, SIGNAL(triggered(bool)), this, SLOT(connectToDB()));
+    connect(ui->generateXML, SIGNAL(triggered(bool)), this, SLOT(generateXML()));
+    connect(ui->exit, SIGNAL(triggered(bool)), this, SLOT(close()));
     connect(LW.ui->pushButton, SIGNAL(clicked(bool)), this, SLOT(updateTable()));
 
     connect(ui->surnameField, SIGNAL(textChanged(QString)), this, SLOT(checkInput()));
@@ -26,9 +42,13 @@ MainMenu::MainMenu(QWidget *parent) :
     connect(ui->adressField, SIGNAL(textChanged(QString)), this, SLOT(checkInput()));
     connect(ui->telephoneField, SIGNAL(textChanged(QString)), this, SLOT(checkInput()));
     connect(ui->nameField, SIGNAL(textChanged(QString)), this, SLOT(checkInput()));
-    connect(ui->surnameFindField, SIGNAL(textChanged(QString)), this, SLOT(changeFindBtnState()));
 
-    QRegExp RegEx( "^[А-ЯІ][а-яі]+$" );
+    connect(ui->surnameFindField, SIGNAL(textChanged(QString)), this, SLOT(changeFindBtnState()));
+    connect(ui->surnameCheckBox, SIGNAL(stateChanged(int)), this, SLOT(changeFindBtnState()));
+    connect(ui->specialityCheckBox, SIGNAL(stateChanged(int)), this, SLOT(changeFindBtnState()));
+    connect(ui->dateCheckBox, SIGNAL(stateChanged(int)), this, SLOT(changeFindBtnState()));
+
+    QRegExp RegEx("^[А-ЯІЄЇ][а-яієї]+$");
     QValidator *validator = new QRegExpValidator(RegEx, this);
     ui->surnameField->setValidator(validator);
     ui->nameField->setValidator(validator);
@@ -51,6 +71,8 @@ MainMenu::MainMenu(QWidget *parent) :
     {
         ui->specialityFindBox->addItem(ui->specialityBox->itemText(i));
     }
+
+    ui->generateXML->setEnabled(false);
 }
 
 void MainMenu::setHeaderData()
@@ -77,12 +99,84 @@ MainMenu::~MainMenu()
     delete ui;
 }
 
+void MainMenu::generateXML()
+{
+    QString fileName = "";
+    fileName = QFileDialog::getSaveFileName(this,
+        tr("Збереження XML"), "/home/ZNTU_Abiturient_XML.xml", tr("XML (*.xml)"));
+
+    if(fileName == "")
+    {
+        return;
+    }
+
+    qDebug() << "XML to save:" << fileName;
+
+    QFile file(fileName);
+    file.open(QIODevice::WriteOnly);
+
+    QXmlStreamWriter xmlWriter(&file);
+    xmlWriter.setAutoFormatting(true);
+    xmlWriter.setCodec("windows-1251");
+    xmlWriter.writeStartDocument();
+    xmlWriter.writeStartElement("database");
+
+    for(int i=0; i<ui->abitList->model()->rowCount(); i++)
+    {
+        xmlWriter.writeStartElement("abiturient");
+        xmlWriter.writeAttribute("surname",         ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 0)).toString());
+        xmlWriter.writeAttribute("name",            ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 1)).toString());
+        xmlWriter.writeAttribute("fathersname",     ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 2)).toString());
+        xmlWriter.writeAttribute("dateofbirth",     ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 3)).toString());
+        xmlWriter.writeAttribute("passport",        ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 4)).toString());
+        xmlWriter.writeAttribute("id",              ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 5)).toString());
+        xmlWriter.writeAttribute("telephone",       ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 6)).toString());
+        xmlWriter.writeAttribute("address",         ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 7)).toString());
+        xmlWriter.writeAttribute("level",           ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 8)).toString());
+        xmlWriter.writeAttribute("rating",          ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 9)).toString());
+        xmlWriter.writeAttribute("form",            ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 10)).toString());
+        xmlWriter.writeAttribute("speciality",      ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 11)).toString());
+        xmlWriter.writeAttribute("outsider",        ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 12)).toString());
+        xmlWriter.writeAttribute("chumneed",        ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 13)).toString());
+        xmlWriter.writeAttribute("dateofadding",    ui->abitList->model()->data
+                                                    (ui->abitList->model()->index(i, 14)).toString());
+
+        xmlWriter.writeEndElement();
+    }
+
+    xmlWriter.writeEndElement();
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+
+    file.close();
+}
+
 void MainMenu::updateTable()
 {
     if(LW.successEnter == false)
     {
         return;
     }
+
+    QSqlQuery query;
+    query.exec(" SELECT [ПІБ] FROM Оператори WHERE [Логін] = '" + LW.correct.login + "' ");
+    query.next();
+    ui->statusLabel->setText("Оператор: " + query.value(0).toString());
 
     abitListModel = new QSqlQueryModel(this);
 
@@ -104,6 +198,7 @@ void MainMenu::updateTable()
     ui->abitList->resizeRowsToContents();
 
     ui->tabWidget->setEnabled(true);
+    ui->generateXML->setEnabled(true);
     ui->addBtn->setEnabled(false);
     ui->findBtn->setEnabled(false);
 }
@@ -119,40 +214,23 @@ void MainMenu::connectToDB()
         return;
     }
 
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(fileName);
-    qDebug() << db.databaseName();
+    DBI.connectToDB(fileName);
 
-    if(db.open())
-    {
-        qDebug() << "Success!";
-
-        foreach(QString t, db.tables())
-        {
-            qDebug() << t ;
-        }
-    }
-
-    else
-    {
-        qDebug() << "Fail!";
-    }
-
-
-    if(db.databaseName()!="")
+    if(DBI.DB().databaseName()!="")
     {
         ui->abitList->setModel(NULL);
 
         ui->tabWidget->setEnabled(false);
+        ui->generateXML->setEnabled(false);
+        ui->statusLabel->setText("Слід обрати БД для завантаження в меню \"Файл\".");
 
         LW.LPVector.clear();
+        LW.correct.clear();
 
-        QSqlQuery query;
-        query.exec("SELECT Логін, Пароль FROM Оператори");
+        QSqlQuery query = DBI.execQuery("SELECT Логін, Пароль FROM Оператори");
 
         while(query.next())
         {
-
             LogPass tmpLogPass;
 
             tmpLogPass.login = query.value(0).toString();
@@ -168,7 +246,6 @@ void MainMenu::connectToDB()
         LW.ui->loginField->clear();
         LW.ui->passwordField->clear();
 
-        LW.setModal(this);
         LW.show();
     }
 
@@ -214,11 +291,11 @@ void MainMenu::on_dateCheckBox_clicked()
 
 void MainMenu::changeFindBtnState()
 {
-    bool stateToSet = (ui->dateCheckBox->isChecked()) ||
-                      (ui->specialityCheckBox->isChecked() ||
-                       (ui->surnameCheckBox->isChecked() &&
-                        ui->surnameFindField->text().length() > 0));
+    bool stateToSet =  ui->dateCheckBox->isChecked() ||
+                       ui->specialityCheckBox->isChecked() ||
+                       ui->surnameCheckBox->isChecked();
 
+    if(ui->surnameFindField->text().length() == 0 && ui->surnameCheckBox->isChecked()) stateToSet = false;
     ui->findBtn->setEnabled(stateToSet);
 }
 
@@ -237,60 +314,35 @@ void MainMenu::on_addBtn_clicked()
 
 void MainMenu::insertData()
 {
-    QSqlQuery query;
+    QStringList parameterName;
 
-    query.prepare(" INSERT INTO [Абітурієнти] "
-                  "([Прізвище], [Ім'я], [По-батькові],"
-                  "[Дата народження], [Паспорт], [Ідентифікаційний номер],"
-                  "[Контактний телефон], [Домашня адреса], [Освітньо-кваліфікаційний рівень],"
-                  "[Рейтинговий бал], [Форма навчання], [Спеціальність],"
-                  "[Поза конкурсом], [Потребує гуртожитку], [Дата внесення])"
+    parameterName << "Прізвище" <<  "Ім'я" << "По-батькові"
+                  << "Дата народження" << "Паспорт" << "Ідентифікаційний номер"
+                  << "Контактний телефон" <<  "Домашня адреса" << "Освітньо-кваліфікаційний рівень"
+                  << "Рейтинговий бал" << "Форма навчання" << "Спеціальність"
+                  << "Поза конкурсом" << "Потребує гуртожитку" << "Дата внесення";
 
-                  " VALUES "
-                  "(:surname, :name, :fathersname, "
-                  ":dateofbirth, :passport, :id, :telephone,"
-                  ":adress, :edlevel, :rating, :edform, :spec,"
-                  ":outside, :chumneed, :dateofadding)");
 
-    QString name = ui->nameField->text();
-    QString surname = ui->surnameField->text();
-    QString fathersname = ui->fathersNameField->text();
-    QDate dateofbirth = ui->dateOfBirth->date();
-    QString passport = ui->passportField->text();
-    QString id = ui->idField->text();
-    QString telephone = ui->telephoneField->text();
-    QString adress = ui->adressField->text();
-    QString edlevel = ui->levelBox->currentText();
-    double rating = ui->ratingBox->value();
-    QString edform = ui->formBox->currentText();
-    QString spec = ui->specialityBox->currentText();
-    QString outside = (ui->outsideCheckBox->isChecked()) ? "Так" : "Ні" ;
-    qDebug() << outside;
-    QString chumneed = (ui->chummeryCheckBox->isChecked()) ? "Так" : "Ні" ;
-    qDebug() << chumneed;
-    QDate dateofadding = QDate::currentDate();
 
-    query.bindValue(":surname", surname);
-    query.bindValue(":name", name);
-    query.bindValue(":fathersname", fathersname);
-    query.bindValue(":dateofbirth", dateofbirth);
-    query.bindValue(":passport", passport);
-    query.bindValue(":id", id);
-    query.bindValue(":telephone", telephone);
-    query.bindValue(":adress", adress);
-    query.bindValue(":edlevel", edlevel);
-    query.bindValue(":rating", rating);
-    query.bindValue(":edform", edform);
-    query.bindValue(":spec", spec);
-    query.bindValue(":outside", outside);
-    query.bindValue(":chumneed", chumneed);
-    query.bindValue(":dateofadding", dateofadding);
+    QVariantList parameterValue;
 
-    if(query.exec())
-    {
-        qDebug() << "Inserted succesfully!";
-    }
-    else qDebug() << query.lastError();
+    parameterValue << ui->surnameField->text()
+                   << ui->nameField->text()
+                   << ui->fathersNameField->text()
+                   << ui->dateOfBirth->date()
+                   << ui->passportField->text()
+                   << ui->idField->text()
+                   << ui->telephoneField->text()
+                   << ui->adressField->text()
+                   << ui->levelBox->currentText()
+                   << ui->ratingBox->value()
+                   << ui->formBox->currentText()
+                   << ui->specialityBox->currentText()
+                   << ((ui->outsideCheckBox->isChecked()) ? "Так" : "Ні")
+                   << ((ui->chummeryCheckBox->isChecked()) ? "Так" : "Ні")
+                   << QDate::currentDate();
+
+    DBI.addToDB("Абітурієнти", parameterName, parameterValue);
 
     ui->nameField->clear();
     ui->surnameField->clear();
@@ -309,42 +361,34 @@ void MainMenu::insertData()
 
 void MainMenu::on_findBtn_clicked()
 {
-    QString queryText = "SELECT [Прізвище], [Ім'я], [По-батькові],"
+    QStringList filterName;
+    QVariantList filterValue;
+    QString defaultQueryText = "SELECT [Прізвище], [Ім'я], [По-батькові],"
             "strftime('%d/%m/%Y', [Дата народження]), [Паспорт], [Ідентифікаційний номер],"
             "[Контактний телефон], [Домашня адреса], [Освітньо-кваліфікаційний рівень],"
             "[Рейтинговий бал], [Форма навчання], [Спеціальність],"
-            "[Поза конкурсом], [Потребує гуртожитку], strftime('%d/%m/%Y', [Дата внесення]) FROM Абітурієнти WHERE ";
-
-    bool onlyOneParameter = true;
+            "[Поза конкурсом], [Потребує гуртожитку], strftime('%d/%m/%Y', [Дата внесення]) FROM Абітурієнти";
 
     if(ui->specialityCheckBox->isChecked())
     {
-        queryText += "Спеціальність = '" + ui->specialityFindBox->currentText() + "' ";
-        onlyOneParameter = false;
+        filterName << "Спеціальність";
+        filterValue << ui->specialityFindBox->currentText();
     }
 
     if(ui->surnameCheckBox->isChecked())
     {
-        if(!onlyOneParameter) queryText += "AND";
-        queryText += " Прізвище = '" + ui->surnameFindField->text() + "' ";
+        filterName << "Прізвище";
+        filterValue << ui->surnameFindField->text();
     }
 
     if(ui->dateCheckBox->isChecked())
     {
-        if(!onlyOneParameter) queryText += "AND";
-        queryText += " [Дата внесення] = '" + ui->dateFindBox->date().toString("yyyy-MM-dd") + "' ";
+        filterName << "Дата внесення";
+        filterValue <<  ui->dateFindBox->date().toString("yyyy-MM-dd");
     }
 
-    qDebug() << queryText;
-
-    QSqlQuery query(queryText);
-
-    if(query.exec())
-        qDebug() << "Succesfully selected!";
-    else qDebug() << query.lastError();
-
     abitListModel = new QSqlQueryModel(this);
-    abitListModel->setQuery(query);
+    abitListModel->setQuery(DBI.selectWithFilters(defaultQueryText, filterName, filterValue));
     setHeaderData();
 
     ui->abitList->setModel(abitListModel);
@@ -360,6 +404,10 @@ void MainMenu::on_refreshBtn_clicked()
 
     ui->specialityCheckBox->setChecked(false);
     ui->dateCheckBox->setChecked(false);
+
+    ui->surnameFindField->setEnabled(false);
+    ui->specialityFindBox->setEnabled(false);
+    ui->dateFindBox->setEnabled(false);
 
     updateTable();
 }

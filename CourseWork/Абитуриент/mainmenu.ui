@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>481</width>
-    <height>480</height>
+    <width>480</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>480</width>
-    <height>480</height>
+    <height>500</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -21,20 +21,27 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="enabled">
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="registration">
        <attribute name="title">
         <string>Реєстрація</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
+        <item row="2" column="0">
+         <widget class="QPushButton" name="addBtn">
+          <property name="text">
+           <string>Додати</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="6" column="0">
            <widget class="QLabel" name="label_6">
@@ -43,10 +50,10 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="0">
-           <widget class="Line" name="line">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+          <item row="7" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Домашня адреса</string>
             </property>
            </widget>
           </item>
@@ -57,13 +64,6 @@
             </property>
            </widget>
           </item>
-          <item row="12" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>Форма навчання</string>
-            </property>
-           </widget>
-          </item>
           <item row="13" column="0">
            <widget class="QLabel" name="label_11">
             <property name="text">
@@ -71,10 +71,10 @@
             </property>
            </widget>
           </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="label_7">
+          <item row="12" column="0">
+           <widget class="QLabel" name="label_9">
             <property name="text">
-             <string>Домашня адреса</string>
+             <string>Форма навчання</string>
             </property>
            </widget>
           </item>
@@ -92,6 +92,13 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>По-батькові</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
@@ -99,12 +106,8 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>По-батькові</string>
-            </property>
-           </widget>
+          <item row="5" column="2">
+           <widget class="QLineEdit" name="idField"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_2">
@@ -120,9 +123,6 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QLineEdit" name="nameField"/>
-          </item>
           <item row="15" column="0">
            <widget class="QLabel" name="label_13">
             <property name="text">
@@ -130,29 +130,17 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="idField"/>
-          </item>
-          <item row="0" column="1" colspan="2">
-           <widget class="QLineEdit" name="surnameField"/>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="fathersNameField"/>
-          </item>
-          <item row="4" column="1">
+          <item row="4" column="2">
            <widget class="QLineEdit" name="passportField"/>
           </item>
-          <item row="7" column="1">
-           <widget class="QLineEdit" name="adressField"/>
-          </item>
-          <item row="6" column="1">
+          <item row="6" column="2">
            <widget class="QLineEdit" name="telephoneField">
             <property name="text">
              <string>380</string>
             </property>
            </widget>
           </item>
-          <item row="10" column="1">
+          <item row="10" column="2">
            <widget class="QComboBox" name="levelBox">
             <item>
              <property name="text">
@@ -166,21 +154,20 @@
             </item>
            </widget>
           </item>
-          <item row="12" column="1">
-           <widget class="QComboBox" name="formBox">
-            <item>
-             <property name="text">
-              <string>Денна</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Заочна</string>
-             </property>
-            </item>
+          <item row="7" column="2">
+           <widget class="QLineEdit" name="adressField"/>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLineEdit" name="fathersNameField"/>
+          </item>
+          <item row="15" column="2">
+           <widget class="QCheckBox" name="chummeryCheckBox">
+            <property name="text">
+             <string/>
+            </property>
            </widget>
           </item>
-          <item row="13" column="1">
+          <item row="13" column="2">
            <widget class="QComboBox" name="specialityBox">
             <item>
              <property name="text">
@@ -204,12 +191,12 @@
             </item>
             <item>
              <property name="text">
-              <string>Комп'ютерні науки</string>
+              <string>Менеджмент</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Менеджмент</string>
+              <string>Комп. науки</string>
              </property>
             </item>
             <item>
@@ -224,34 +211,34 @@
             </item>
            </widget>
           </item>
-          <item row="11" column="1">
-           <widget class="QDoubleSpinBox" name="ratingBox">
-            <property name="minimum">
-             <double>100.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>210.000000000000000</double>
-            </property>
+          <item row="12" column="2">
+           <widget class="QComboBox" name="formBox">
+            <item>
+             <property name="text">
+              <string>Денна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Заочна</string>
+             </property>
+            </item>
            </widget>
           </item>
-          <item row="15" column="1">
-           <widget class="QCheckBox" name="chummeryCheckBox">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="14" column="1">
+          <item row="14" column="2">
            <widget class="QCheckBox" name="outsideCheckBox">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="14" column="0">
-           <widget class="QLabel" name="label_12">
-            <property name="text">
-             <string>Поза конкурсом</string>
+          <item row="11" column="2">
+           <widget class="QDoubleSpinBox" name="ratingBox">
+            <property name="minimum">
+             <double>100.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>210.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -262,17 +249,30 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
+          <item row="3" column="2">
            <widget class="QDateEdit" name="dateOfBirth"/>
           </item>
+          <item row="14" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Поза конкурсом</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0" colspan="3">
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLineEdit" name="surnameField"/>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLineEdit" name="nameField"/>
+          </item>
          </layout>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="addBtn">
-          <property name="text">
-           <string>Додати</string>
-          </property>
-         </widget>
         </item>
        </layout>
       </widget>
@@ -286,10 +286,10 @@
           <item row="0" column="0">
            <widget class="QGroupBox" name="findCondition">
             <property name="title">
-             <string>Пошук</string>
+             <string/>
             </property>
             <layout class="QGridLayout" name="gridLayout_6">
-             <item row="0" column="0">
+             <item row="0" column="0" colspan="2">
               <layout class="QGridLayout" name="gridLayout_7">
                <item row="1" column="0">
                 <widget class="QCheckBox" name="specialityCheckBox">
@@ -338,17 +338,14 @@
                </item>
               </layout>
              </item>
-             <item row="3" column="0">
-              <widget class="QTableView" name="abitList"/>
-             </item>
-             <item row="1" column="0">
+             <item row="1" column="0" colspan="2">
               <widget class="QPushButton" name="findBtn">
                <property name="text">
                 <string>Знайти</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="0">
+             <item row="2" column="0" colspan="2">
               <widget class="QPushButton" name="refreshBtn">
                <property name="text">
                 <string>Скинути</string>
@@ -360,8 +357,18 @@
           </item>
          </layout>
         </item>
+        <item row="1" column="0">
+         <widget class="QTableView" name="abitList"/>
+        </item>
        </layout>
       </widget>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="statusLabel">
+      <property name="text">
+       <string>Слід обрати БД для завантаження в меню &quot;Файл&quot;.</string>
+      </property>
      </widget>
     </item>
    </layout>
@@ -371,7 +378,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>481</width>
+     <width>480</width>
      <height>21</height>
     </rect>
    </property>
@@ -409,7 +416,6 @@
  </widget>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>surnameField</tabstop>
   <tabstop>nameField</tabstop>
   <tabstop>fathersNameField</tabstop>
   <tabstop>dateOfBirth</tabstop>
@@ -429,7 +435,6 @@
   <tabstop>specialityFindBox</tabstop>
   <tabstop>dateFindBox</tabstop>
   <tabstop>dateCheckBox</tabstop>
-  <tabstop>abitList</tabstop>
   <tabstop>specialityCheckBox</tabstop>
  </tabstops>
  <resources/>

@@ -1,7 +1,7 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 
-#include <QDialog>
+#include <QMainWindow>
 #include <QVector>
 
 #include "ui_loginwindow.h"
@@ -10,13 +10,19 @@ struct LogPass
 {
     QString login;
     QString pass;
+
+    void clear()
+    {
+        login = "";
+        pass = "";
+    }
 };
 
 namespace Ui {
 class LoginWindow;
 }
 
-class LoginWindow : public QDialog
+class LoginWindow : public QMainWindow
 {
     Q_OBJECT
 
@@ -25,6 +31,7 @@ public:
     ~LoginWindow();
     Ui::LoginWindow *ui;
     QVector <LogPass> LPVector;
+    LogPass correct;
     bool successEnter = false;
 
 private slots:
